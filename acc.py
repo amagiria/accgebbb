@@ -1,4 +1,3 @@
-import amino
 import os
 import wget
 import string
@@ -23,7 +22,6 @@ from time import sleep
 from bs4 import BeautifulSoup
 from time import time as timestamp
 from fancy_text import fancy
-client=amino.Client()
 def gen_captcha():
     val = "".join(random.choices(string.ascii_uppercase + string.ascii_lowercase + "_-", k=462)).replace("--", "-")
     return val
