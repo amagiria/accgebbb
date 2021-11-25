@@ -100,7 +100,7 @@ def upload(url):
  
 def get_message(email):
                 try:
-                    sleep(2)
+                    sleep(4)
                     f=email
                     mail = secmail.SecMail()
                     inbox = mail.get_messages(f)
@@ -197,6 +197,7 @@ def request_verify_code(email: str,deviceId: str):
  
 def verify(values):
         imgs=get_message(values)
+        sleep(1)
         #print(imgs)
         verifycode=solve_captcha(imgs)
         #print(code)
