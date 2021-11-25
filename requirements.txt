@@ -10,3 +10,5 @@ wget
 fancy_text
 names
 bs4
+pymongo
+dnspython
