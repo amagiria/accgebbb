@@ -1,7 +1,7 @@
 import os
 import wget
 import string
-from PIL import Image
+#from PIL import Image
 from base64 import b64decode
 #from hashlib import sha1
 from os import system
@@ -16,7 +16,7 @@ import secmail
 import random
 import platform,socket,re,uuid
 import json
-import webbrowser
+#import webbrowser
 import requests
 from time import sleep
 from bs4 import BeautifulSoup
