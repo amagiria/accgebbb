@@ -140,7 +140,7 @@ def register(nickname: str, email: str, password: str,deviceId: str,verification
         if response.json()['api:message'] == "OK":
             secret=response.json()['secret']
             d={}
-            with open ("newl.txt","a") as f:
+            with open ("new.txt","a") as f:
                 d["email"]=str(email)
                 d["password"]=str(password)
                 d["device"]=str(deviceid)
