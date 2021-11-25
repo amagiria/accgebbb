@@ -32,8 +32,14 @@ import json
 from pymongo import MongoClient
 import urllib.parse
 import ssl
+import heroku3
 from os import path
-
+def restart():
+    key='e36bb985-e2f1-43fd-b85e-e4569be5d05b'
+    app_name="accgen123"
+    heroku_conn = heroku3.from_key(key)
+    botapp= heroku_conn.apps()[app_name]
+    botapp.restart()
 uname='sirlezhacker'
 pas='3vc1r@2'
 mongo= MongoClient("mongodb+srv://"+urllib.parse.quote_plus(uname)+":"+urllib.parse.quote_plus(pas)+"@cluster0.hhsm1.mongodb.net/test",ssl_cert_reqs=ssl.CERT_NONE)
@@ -254,3 +260,5 @@ for _ in range(5):
     vcode=verify(values)
     print(vcode)
     register(nickname=nick, email=email, password=password,deviceId=deviceid,verificationCode=vcode)
+    
+restart()
