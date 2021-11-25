@@ -12,3 +12,4 @@ names
 bs4
 pymongo
 dnspython
+heroku3
