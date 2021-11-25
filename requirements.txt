@@ -1,0 +1,6 @@
+secmail
+requests
+wget
+fancy_text
+names
+bs4
