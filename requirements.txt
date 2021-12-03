@@ -13,3 +13,4 @@ bs4
 pymongo
 dnspython
 heroku3
+python_rucaptcha
