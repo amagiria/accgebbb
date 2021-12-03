@@ -43,7 +43,7 @@ def restart():
     botapp.restart()
 uname='sirlezhacker'
 pas='3vc1r@2'
-mongo= MongoClient("mongodb+srv://"+urllib.parse.quote_plus(uname)+":"+urllib.parse.quote_plus(pas)+"@cluster0.hhsm1.mongodb.net/test",ssl_cert_reqs=ssl.CERT_NONE)
+mongo= MongoClient("mongodb+srv://"+urllib.parse.quote_plus(uname)+":"+urllib.parse.quote_plus(pas)+"@cluster0.hhsm1.mongodb.net/test")
 c=mongo['amino']
 db=c["acc_gen"]
 def gen_captcha():
