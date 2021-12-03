@@ -31,6 +31,7 @@ import dns.resolver
 import json
 from pymongo import MongoClient
 import urllib.parse
+from python_rucaptcha import ImageCaptcha
 import ssl
 import heroku3
 from os import path
@@ -70,23 +71,10 @@ def device():
         devid=req['result']['url'].split('=')[4]
         dev=devid.upper()
         return dev
-def solve_captcha(url):
-    data = f'------WebKitFormBoundaryykBxIBxqNdHhsFqt\nContent-Disposition: form-data; name="image"\n\n{url}\n\n------WebKitFormBoundaryykBxIBxqNdHhsFqt--\n'
-    headers = {
-    'Host': '45.77.2.238',
-    'Cache-Control': 'max-age=0',
-    'Upgrade-Insecure-Requests': '1',
-    'Origin': 'http://45.77.2.238',
-    'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryykBxIBxqNdHhsFqt',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,/;q=0.8,application/signed-exchange;v=b3;q=0.9',
-    'Referer': 'http://45.77.2.238/captcha',
-    'Accept-Language': 'en-US,en;q=0.9',
-}
-    headers['content-length']=str(len(data))
-    response=requests.post('http://149.28.211.51/captcha',data=data,headers=headers)
-    response=json.loads(response.text)
-    return response["captcha"]
+def code(link):
+
+    user_answer=ImageCaptcha.ImageCaptcha(rucaptcha_key=str("0bea597111a8d2230504e76f413268fb")).captcha_handler(captcha_link=link)
+    return user_answer["captchaSolve"]
  
 def gen_email():
     mail = secmail.SecMail()
@@ -199,7 +187,7 @@ def verify(values):
         imgs=get_message(values)
         sleep(1)
         #print(imgs)
-        verifycode=solve_captcha(imgs)
+        verifycode=code(imgs)
         #print(code)
         return verifycode
  
