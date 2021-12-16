@@ -1,6 +1,7 @@
 import os
 import wget
 import string
+from typing import Union
 #from PIL import Image
 from base64 import b64decode
 #from hashlib import sha1
@@ -46,29 +47,39 @@ pas='3vc1r@2'
 mongo= MongoClient("mongodb+srv://"+urllib.parse.quote_plus(uname)+":"+urllib.parse.quote_plus(pas)+"@cluster0.hhsm1.mongodb.net/test")
 c=mongo['amino']
 db=c["acc_gen"]
-def gen_captcha():
-    val = "".join(random.choices(string.ascii_uppercase + string.ascii_lowercase + "_-", k=462)).replace("--", "-")
-    return val
+def sig(data: Union[str, dict]) -> str:
+    if isinstance(data, dict): data = json.dumps(data)
+    response = requests.get(f"https://emerald-dream.herokuapp.com/signature/{data}").json()
+    if response["status"] == "correct":
+        return response["signature"]
+headers={
+    "NDCDEVICEID": "3292A6BD0622A88376FB702120213629BB986270887E2C6AEB8F7C1A066F76B6AD60E5BFF62EE5505A",
+    "accept-language": "en-US",
+    "content-type": "application/json; charset=utf-8",
+    "accept-encoding": "gzip",
+    "user-agent": "Dalvik/2.1.0 (Linux; U; Android 10; POCO F1 Build/QQ3A.200805.001; com.narvii.amino.master/3.4.33581)"
+     }
 def device():
-        headers = {
-    'Host': 'aminoapps.com',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36',
-    'content-type': 'application/json',
-    'accept': '*/*',
-    'origin': 'https://aminoapps.com',
-    }
- 
-        data = {
-        "recaptcha_challenge": gen_captcha(),
-        "recaptcha_version":"v3",
-        "auth_type":0,
-        "secret":"samar123",
-        "email":"p5y3xagz@wwjmp.com"
-        }
-        data=(data)
-        req = requests.post('https://aminoapps.com/api/auth', headers=headers, json=data)
-        req=json.loads(req.text)
-        devid=req['result']['url'].split('=')[4]
+        
+        data = json.dumps({
+            "email": "378rasv154w@1secmail.org",
+            "v": 2,
+            #"recaptcha_challenge": rr,
+            #"recaptcha_version":"v3",
+            "secret": f"0 replit@54321",
+            "deviceID": "3292A6BD0622A88376FB702120213629BB986270887E2C6AEB8F7C1A066F76B6AD60E5BFF62EE5505A",
+            "clientType": 100,
+            "action": "normal",
+            "timestamp": int(timestamp() * 1000)
+        })
+        sigg=sig(data)
+        headers["NDC-MSG-SIG"]=sigg
+        
+    
+
+        response = requests.post(f"https://service.narvii.com/api/v1/g/s/auth/login", headers=headers, data=data)
+        req=json.loads(response.text)
+        devid=req['url'].split('=')[4]
         dev=devid.upper()
         return dev
 def code(link):
@@ -107,10 +118,7 @@ def get_message(email):
                     pass
 def hwid():
     return names.get_full_name()+str(random.randint(0,10000000))+platform.version()+platform.machine()+names.get_first_name()+socket.gethostbyname(socket.gethostname())+':'.join(re.findall('..', '%012x' % uuid.getnode()))+platform.processor()
-def sig(data):
-        mac = hmac.new(bytes.fromhex("307c3c8cd389e69dc298d951341f88419a8377f4"), data.encode("utf-8"), sha1)
-        digest = bytes.fromhex("22") + mac.digest()
-        return base64.b64encode(digest).decode("utf-8")
+
   
             
 def register(nickname: str, email: str, password: str,deviceId: str,verificationCode: str):
