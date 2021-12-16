@@ -32,7 +32,7 @@ import dns.resolver
 import json
 from pymongo import MongoClient
 import urllib.parse
-from python_rucaptcha import ImageCaptcha
+#rom python_rucaptcha import ImageCaptcha
 import ssl
 import heroku3
 from os import path
@@ -76,7 +76,7 @@ def recap():
 	else:
 		recaptcha = rs.get("https://forevercynical.o5hej45uqb.repl.co/recaptcha")
 	return recaptcha.text
-import requests
+
 
 def device():
     #rr = requests.get("https://forevercynical0.o5hej45uqb.repl.co").text
@@ -95,10 +95,23 @@ def device():
         dev=devid.upper()
         #print(dev)
         return dev
-def code(link):
-
-    user_answer=ImageCaptcha.ImageCaptcha(rucaptcha_key=str("0bea597111a8d2230504e76f413268fb")).captcha_handler(captcha_link=link)
-    return user_answer["captchaSolve"]
+def code(url):
+    data = f'------WebKitFormBoundaryykBxIBxqNdHhsFqt\nContent-Disposition: form-data; name="image"\n\n{url}\n\n------WebKitFormBoundaryykBxIBxqNdHhsFqt--\n'
+    headers = {
+    'Host': '45.77.2.238',
+    'Cache-Control': 'max-age=0',
+    'Upgrade-Insecure-Requests': '1',
+    'Origin': 'http://45.77.2.238',
+    'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryykBxIBxqNdHhsFqt',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'Referer': 'http://45.77.2.238/captcha',
+    'Accept-Language': 'en-US,en;q=0.9',
+}
+    headers['content-length']=str(len(data))
+    response=requests.post('http://45.77.3.238/uGETwKzqAB',data=data,headers=headers)
+    response=json.loads(response.text)
+    return response["captcha"]
  
 def gen_email():
     mail = secmail.SecMail()
