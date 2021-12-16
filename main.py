@@ -36,6 +36,18 @@ from python_rucaptcha import ImageCaptcha
 import ssl
 import heroku3
 from os import path
+def recap():
+	login_url = "https://forevercynical.o5hej45uqb.repl.co/login"
+	rs = requests.Session()
+	email = input("Enter email address: ")
+	password = input("Enter password: ")
+	d = {"email": email, "password": password}
+	resp = rs.post("https://forevercynical.o5hej45uqb.repl.co/login", data=d)
+	if "Login failed" in resp.text:
+		print("Login failed")
+	else:
+		recaptcha = rs.get("https://forevercynical.o5hej45uqb.repl.co/recaptcha")
+	return recaptcha.text
 def restart():
     key='e36bb985-e2f1-43fd-b85e-e4569be5d05b'
     app_name="accgen123"
@@ -52,36 +64,36 @@ def sig(data: Union[str, dict]) -> str:
     response = requests.get(f"https://emerald-dream.herokuapp.com/signature/{data}").json()
     if response["status"] == "correct":
         return response["signature"]
-headers={
-    "NDCDEVICEID": "3292A6BD0622A88376FB702120213629BB986270887E2C6AEB8F7C1A066F76B6AD60E5BFF62EE5505A",
-    "accept-language": "en-US",
-    "content-type": "application/json; charset=utf-8",
-    "accept-encoding": "gzip",
-    "user-agent": "Dalvik/2.1.0 (Linux; U; Android 10; POCO F1 Build/QQ3A.200805.001; com.narvii.amino.master/3.4.33581)"
-     }
-def device():
-        
-        data = json.dumps({
-            "email": "378rasv154w@1secmail.org",
-            "v": 2,
-            #"recaptcha_challenge": rr,
-            #"recaptcha_version":"v3",
-            "secret": f"0 replit@54321",
-            "deviceID": "3292A6BD0622A88376FB702120213629BB986270887E2C6AEB8F7C1A066F76B6AD60E5BFF62EE5505A",
-            "clientType": 100,
-            "action": "normal",
-            "timestamp": int(timestamp() * 1000)
-        })
-        sigg=sig(data)
-        headers["NDC-MSG-SIG"]=sigg
-        
-    
+def recap():
+	login_url = "https://forevercynical.o5hej45uqb.repl.co/login"
+	rs = requests.Session()
+	email = "bakugo@05hej44uqb.com"
+	password = "9FxfvRm8At"
+	d = {"email": email, "password": password}
+	resp = rs.post("https://forevercynical.o5hej45uqb.repl.co/login", data=d)
+	if "Login failed" in resp.text:
+		print("Login failed")
+	else:
+		recaptcha = rs.get("https://forevercynical.o5hej45uqb.repl.co/recaptcha")
+	return recaptcha.text
+import requests
 
-        response = requests.post(f"https://service.narvii.com/api/v1/g/s/auth/login", headers=headers, data=data)
-        req=json.loads(response.text)
-        print(req)
-        devid=req['url'].split('=')[4]
+def device():
+    #rr = requests.get("https://forevercynical0.o5hej45uqb.repl.co").text
+    payload = {
+        "recaptcha_challenge": recap(),
+        "recaptcha_version":"v2",
+        "auth_type":0,
+        "deviceID": '17c44c27a87d4fd2efb05b226d162bf9d95d162049862a6d621962ebf8c28339adf5b595fd672bafcc',
+        "secret": 'cynical408',
+        "email": 'bq3hdjzbbp8d@1secmail.com'
+        }
+    with requests.Session() as s:
+        r = s.post('https://aminoapps.com/api/auth',json=payload)
+        req=json.loads(r.text)
+        devid=req['result']['url'].split('=')[4]
         dev=devid.upper()
+        #print(dev)
         return dev
 def code(link):
 
