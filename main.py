@@ -36,6 +36,18 @@ import urllib.parse
 import ssl
 import heroku3
 from os import path
+ear=[]
+t = open('ew.txt','r')
+for m in t.read().splitlines():
+    temp=m
+    # for fx in range(0,len(temp)):
+    #     temp=temp[:len(temp)-1]
+
+    ear.append(str(temp))
+t.close
+def rand():
+	p=random.randint(1,1200)
+	return p
 def recap():
 	login_url = "https://forevercynical.o5hej45uqb.repl.co/login"
 	rs = requests.Session()
@@ -90,9 +102,12 @@ def device():
         }
     with requests.Session() as s:
         r = s.post('https://aminoapps.com/api/auth',json=payload)
-        req=json.loads(r.text)
-        devid=req['result']['url'].split('=')[4]
-        dev=devid.upper()
+        try:
+        	req=json.loads(r.text)
+        	devid=req['result']['url'].split('=')[4]
+        	dev=devid.upper()
+        except:
+        	dev=ear[rand()]
         #print(dev)
         return dev
 def code(url):
