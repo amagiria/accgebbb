@@ -79,6 +79,7 @@ def device():
 
         response = requests.post(f"https://service.narvii.com/api/v1/g/s/auth/login", headers=headers, data=data)
         req=json.loads(response.text)
+        print(req)
         devid=req['url'].split('=')[4]
         dev=devid.upper()
         return dev
