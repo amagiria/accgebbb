@@ -8,6 +8,11 @@ from base64 import b64decode
 from os import system
 from io import BytesIO
 import names
+from hashlib import sha1
+import names
+import random
+import hmac
+import platform,socket,re,uuid 
 import base64
 import hmac
 import time
@@ -36,30 +41,7 @@ import urllib.parse
 import ssl
 import heroku3
 from os import path
-ear=[]
-t = open('ew.txt','r')
-for m in t.read().splitlines():
-    temp=m
-    # for fx in range(0,len(temp)):
-    #     temp=temp[:len(temp)-1]
 
-    ear.append(str(temp))
-t.close
-def rand():
-	p=random.randint(1,1200)
-	return p
-def recap():
-	login_url = "https://forevercynical.o5hej45uqb.repl.co/login"
-	rs = requests.Session()
-	email = input("Enter email address: ")
-	password = input("Enter password: ")
-	d = {"email": email, "password": password}
-	resp = rs.post("https://forevercynical.o5hej45uqb.repl.co/login", data=d)
-	if "Login failed" in resp.text:
-		print("Login failed")
-	else:
-		recaptcha = rs.get("https://forevercynical.o5hej45uqb.repl.co/recaptcha")
-	return recaptcha.text
 def restart():
     key='e36bb985-e2f1-43fd-b85e-e4569be5d05b'
     app_name="accgen123"
@@ -70,46 +52,22 @@ uname='sirlezhacker'
 pas='3vc1r@2'
 mongo= MongoClient("mongodb+srv://"+urllib.parse.quote_plus(uname)+":"+urllib.parse.quote_plus(pas)+"@cluster0.hhsm1.mongodb.net/test")
 c=mongo['amino']
-db=c["acc_gen"]
-def sig(data: Union[str, dict]) -> str:
-    if isinstance(data, dict): data = json.dumps(data)
-    response = requests.get(f"https://emerald-dream.herokuapp.com/signature/{data}").json()
-    if response["status"] == "correct":
-        return response["signature"]
-def recap():
-	login_url = "https://forevercynical.o5hej45uqb.repl.co/login"
-	rs = requests.Session()
-	email = "bakugo@05hej44uqb.com"
-	password = "9FxfvRm8At"
-	d = {"email": email, "password": password}
-	resp = rs.post("https://forevercynical.o5hej45uqb.repl.co/login", data=d)
-	if "Login failed" in resp.text:
-		print("Login failed")
-	else:
-		recaptcha = rs.get("https://forevercynical.o5hej45uqb.repl.co/recaptcha")
-	return recaptcha.text
+db=c["acc33_gen"]
+def signature(data):
+        #at=json.dumps(data)
+        key='fbf98eb3a07a9042ee5593b10ce9f3286a69d4e2'
+        mac = hmac.new(bytes.fromhex(key), data.encode("utf-8"), sha1)
+        digest = bytes.fromhex("32") + mac.digest()
+        return base64.b64encode(digest).decode("utf-8")
+
+
 
 
 def device():
-    #rr = requests.get("https://forevercynical0.o5hej45uqb.repl.co").text
-    payload = {
-        "recaptcha_challenge": recap(),
-        "recaptcha_version":"v2",
-        "auth_type":0,
-        "deviceID": '17c44c27a87d4fd2efb05b226d162bf9d95d162049862a6d621962ebf8c28339adf5b595fd672bafcc',
-        "secret": 'cynical408',
-        "email": 'bq3hdjzbbp8d@1secmail.com'
-        }
-    with requests.Session() as s:
-        r = s.post('https://aminoapps.com/api/auth',json=payload)
-        try:
-        	req=json.loads(r.text)
-        	devid=req['result']['url'].split('=')[4]
-        	dev=devid.upper()
-        except:
-        	dev=ear[rand()]
-        #print(dev)
-        return dev
+    hw=(names.get_full_name()+str(random.randint(0,10000000))+platform.version()+platform.machine()+names.get_first_name()+socket.gethostbyname(socket.gethostname())+':'.join(re.findall('..', '%012x' % uuid.getnode()))+platform.processor())
+    identifier=sha1(hw.encode('utf-8')).digest()
+    mac = hmac.new(bytes.fromhex('76b4a156aaccade137b8b1e77b435a81971fbd3e'), b"\x32" + identifier, sha1)
+    return (f"32{identifier.hex()}{mac.hexdigest()}").upper()
 def code(url):
     data = f'------WebKitFormBoundaryykBxIBxqNdHhsFqt\nContent-Disposition: form-data; name="image"\n\n{url}\n\n------WebKitFormBoundaryykBxIBxqNdHhsFqt--\n'
     headers = {
