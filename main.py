@@ -53,7 +53,7 @@ pas='3vc1r@2'
 mongo= MongoClient("mongodb+srv://"+urllib.parse.quote_plus(uname)+":"+urllib.parse.quote_plus(pas)+"@cluster0.hhsm1.mongodb.net/test")
 c=mongo['amino']
 db=c["acc33_gen"]
-def signature(data):
+def sig(data):
         #at=json.dumps(data)
         key='fbf98eb3a07a9042ee5593b10ce9f3286a69d4e2'
         mac = hmac.new(bytes.fromhex(key), data.encode("utf-8"), sha1)
