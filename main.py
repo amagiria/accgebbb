@@ -2,15 +2,16 @@ import amino
 import os
 import json
 import threading
+from new import key , emaill,deviceid,passwordd,app_name
 import heroku3
 def restart():
-    key='e36bb985-e2f1-43fd-b85e-e4569be5d05b'
-    app_name="accgen123"
+    #key='e36bb985-e2f1-43fd-b85e-e4569be5d05b'
+    #app_name="accgen123"
     heroku_conn = heroku3.from_key(key)
     botapp= heroku_conn.apps()[app_name]
     botapp.restart()
-client=amino.Client("17A7F633BD2668F5C58AC8FF2E0DDB52FE738274220CF20A44FBD5C421B24F47D483B642ED67AE381E")
-client.login("e8bf0gjt9@xojxe.com","tempmail")
+client=amino.Client(deviceid)
+client.login(emaill,passwordd)
 bb=client.get_from_code("http://aminoapps.com/p/x8nptuj")
 chatId=bb.objectId
 print(chatId)
