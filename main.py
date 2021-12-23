@@ -40,7 +40,7 @@ for _ in range(3):
   client.register(email = email,password = password,nickname = "uyyyutytt", verificationCode = code,deviceId=dev)
   try:
     d={}
-    with open ("newmail.txt","a") as f:
+    with open ("new.txt","a") as f:
       d["email"]=str(email)
       d["password"]=str(password)
       d["device"]=str(dev)
