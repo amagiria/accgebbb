@@ -33,6 +33,7 @@ de=client.devicee()
 client=amino.Client(de)
 for _ in range(3):
   dev=client.device_id
+  print(dev)
   email=client.gen_email()
   client.request_verify_code(email = email)
   link=client.get_message(email)
