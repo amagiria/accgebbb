@@ -176,9 +176,9 @@ def request_verify_code(email: str,deviceId: str):
  
 def verify(values):
         imgs=get_message(values)
-        sleep(1)
+        sleep(30)
         #print(imgs)
-        verifycode=input("ppp")
+        verifycode="yooo"
         #print(code)
         return verifycode
  
@@ -237,6 +237,7 @@ for _ in range(5):
     #print(pas)
     nick=names.get_first_name()
     req=request_verify_code(email=email, deviceId=deviceid)
+    sleep(20)
     vcode=verify(values)
     print(vcode)
     register(nickname=nick, email=email, password=password,deviceId=deviceid,verificationCode=vcode)
