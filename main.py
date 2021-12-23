@@ -27,7 +27,7 @@ def find():
     if "6"==length:
       break
   return g
-password=input("password for all: ")
+password="tempmail"
 de=client.devicee()
 client=amino.Client(de)
 for _ in range(3):
