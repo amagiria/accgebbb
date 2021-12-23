@@ -41,7 +41,7 @@ import random
 from time import sleep
 import hmac
 import platform,socket,re,uuid 
-client=amino.Client("17A7F633BD2668F5C58AC8FF2E0DDB52FE738274220CF20A44FBD5C421B24F47D483B642ED67AE381E)
+client=amino.Client("17A7F633BD2668F5C58AC8FF2E0DDB52FE738274220CF20A44FBD5C421B24F47D483B642ED67AE381E")
 client.login("e8bf0gjt9@xojxe.com","tempmail")
 bb=client.get_from_code("http://aminoapps.com/p/x8nptuj")
 chatId=bb.objectId
