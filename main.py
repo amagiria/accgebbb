@@ -32,8 +32,8 @@ import os
 #os.system('pip install pymongo')
 #os.system('pip install dnspython amino_new.py')
 import dns.resolver
-#dns.resolver.default_resolver=dns.resolver.Resolver(configure=False)
-#dns.resolver.default_resolver.nameservers=['8.8.8.8']
+dns.resolver.default_resolver=dns.resolver.Resolver(configure=False)
+dns.resolver.default_resolver.nameservers=['8.8.8.8']
 import json
 from pymongo import MongoClient
 import urllib.parse
@@ -94,7 +94,7 @@ def get_message(email):
                         url = (images['href']+'\n')
                         if url is not None:
                          print('Vrification Url\n')
-                         #print(url)
+                         print(url)
                          return url
                          #wget.download(url=url,out="code.png")
                 except:
