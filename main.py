@@ -2,13 +2,16 @@ import amino
 import os
 import json
 import threading
+import requests
 import wget
 import heroku3
-from new import emaill,passwordd,custompwd,chatlink,private,key,app_name,deviceid,nickname
+from new import emaill,passwordd,custompwd,chatlink,key,app_name,deviceid,nickname,url
 def restart():
     heroku_conn = heroku3.from_key(key)
     botapp= heroku_conn.apps()[app_name]
     botapp.restart()
+def send(data):
+    requests.post(f"{url}/save",data=data)
 client=amino.Client(deviceid)
 client.login(emaill,passwordd)
 bb=client.get_from_code(chatlink)
@@ -49,13 +52,14 @@ for _ in range(3):
   
   try:
     client.register(email = email,password = password,nickname =nickname, verificationCode = code,deviceId=dev)
+    sub.send_message(chatId=chatId,message="done")
     d={}
     d["email"]=str(email)
     d["password"]=str(password)
     d["device"]=str(dev)
-    #t=json.dumps(d)
-    print(d)
-    sub.send_message(chatId=private,message=f"{d}")
+    t=json.dumps(d)
+    data={"data":t}
+    send(data)
   except Exception as l:
     print(l)
     pass 
@@ -77,13 +81,14 @@ for _ in range(2):
   
   try:
     client.register(email = email,password = password,nickname = nickname, verificationCode = code,deviceId=dev)
+    sub.send_message(chatId=chatId,message="done")
     d={}
     d["email"]=str(email)
     d["password"]=str(password)
     d["device"]=str(dev)
-    #t=json.dumps(d)
-    print(d)
-    sub.send_message(chatId=private,message=f"{d}")
+    t=json.dumps(d)
+    data={"data":t}
+    send(data)
   except Exception as k:
     print(k)
     pass
