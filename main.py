@@ -2,18 +2,16 @@ import amino
 import os
 import json
 import threading
-import heroku3
+import wget
+from new import emaill,passwordd,custompwd,chatlink,private,key,app_name
 def restart():
-    key='e36bb985-e2f1-43fd-b85e-e4569be5d05b'
-    app_name="accgen123"
     heroku_conn = heroku3.from_key(key)
     botapp= heroku_conn.apps()[app_name]
     botapp.restart()
 client=amino.Client("17A7F633BD2668F5C58AC8FF2E0DDB52FE738274220CF20A44FBD5C421B24F47D483B642ED67AE381E")
-client.login("e8bf0gjt9@xojxe.com","tempmail")
-bb=client.get_from_code("http://aminoapps.com/p/x8nptuj")
+client.login(emaill,passwordd)
+bb=client.get_from_code(chatlink)
 chatId=bb.objectId
-print(chatId)
 cid=bb.path[1:bb.path.index("/")]
 client.join_community(cid)
 sub=amino.SubClient(comId=cid,profile=client.profile)
@@ -21,35 +19,72 @@ sub.join_chat(chatId)
 def find():
   while True:
     p=sub.get_chat_messages(chatId=chatId,size=1).content
+    #print(p)
     for j in p:
       g=j
-    length=str(len(g))
+    #print(g)
+    l=f"{g}"
+    length=str(len(l))
     if "6"==length:
       break
   return g
-password="tempmail"
+
+password=custompwd
 de=client.devicee()
 client=amino.Client(de)
 for _ in range(3):
+  try: os.remove("code.png")
+  except: pass
   dev=client.device_id
   email=client.gen_email()
+  print(email)
   client.request_verify_code(email = email,dev=dev)
   link=client.get_message(email)
-  sub.send_message(chatId,link)
+  wget.download(url=link,out="code.png")
+  with open("code.png","rb") as file:
+    sub.send_message(chatId=chatId,fileType="image",file=file)
+  p=sub.get_chat_messages(chatId=chatId,size=1).content
   code=find()
-  client.register(email = email,password = password,nickname = "uyyyutytt", verificationCode = code,deviceId=dev)
+  
   try:
+    client.register(email = email,password = password,nickname =nickname, verificationCode = code,deviceId=dev)
     d={}
-    with open ("newmail.txt","a") as f:
-      d["email"]=str(email)
-      d["password"]=str(password)
-      d["device"]=str(dev)
-      t=json.dumps(d)
-      f.write(t+',')
-      print("Saved in File newmail.txt")
-      f.close()
+    d["email"]=str(email)
+    d["password"]=str(password)
+    d["device"]=str(dev)
+    #t=json.dumps(d)
+    print(d)
+    sub.send_message(chatId=private,message=f"{d}")
+  except: pass
+
+de=client.devicee()
+client=amino.Client(de)
+for _ in range(2):
+  try: os.remove("code.png")
+  except: pass
+  dev=client.device_id
+  email=client.gen_email()
+  print(email)
+  client.request_verify_code(email = email,dev=dev)
+  link=client.get_message(email)
+  wget.download(url=link,out="code.png")
+  with open("code.png","rb") as file:
+    sub.send_message(chatId=chatId,fileType="image",file=file)
+  code=find()
+  
+  try:
+    client.register(email = email,password = password,nickname = nickname, verificationCode = code,deviceId=dev)
+    d={}
+    d["email"]=str(email)
+    d["password"]=str(password)
+    d["device"]=str(dev)
+    #t=json.dumps(d)
+    print(d)
+    sub.send_message(chatId=private,message=f"{d}")
   except:
     pass
+
+
 
 restart()
 
