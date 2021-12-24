@@ -3,7 +3,8 @@ import os
 import json
 import threading
 import wget
-from new import emaill,passwordd,custompwd,chatlink,private,key,app_name,deviceid
+import heroku3
+from new import emaill,passwordd,custompwd,chatlink,private,key,app_name,deviceid,nickname
 def restart():
     heroku_conn = heroku3.from_key(key)
     botapp= heroku_conn.apps()[app_name]
@@ -55,7 +56,9 @@ for _ in range(3):
     #t=json.dumps(d)
     print(d)
     sub.send_message(chatId=private,message=f"{d}")
-  except: pass
+  except Exception as l:
+    print(l)
+    pass 
 
 de=client.devicee()
 client=amino.Client(de)
@@ -81,10 +84,10 @@ for _ in range(2):
     #t=json.dumps(d)
     print(d)
     sub.send_message(chatId=private,message=f"{d}")
-  except:
+  except Exception as k:
+    print(k)
     pass
 
 
 
 restart()
-
