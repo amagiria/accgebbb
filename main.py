@@ -3,12 +3,12 @@ import os
 import json
 import threading
 import wget
-from new import emaill,passwordd,custompwd,chatlink,private,key,app_name
+from new import emaill,passwordd,custompwd,chatlink,private,key,app_name,deviceid
 def restart():
     heroku_conn = heroku3.from_key(key)
     botapp= heroku_conn.apps()[app_name]
     botapp.restart()
-client=amino.Client("17A7F633BD2668F5C58AC8FF2E0DDB52FE738274220CF20A44FBD5C421B24F47D483B642ED67AE381E")
+client=amino.Client(deviceid)
 client.login(emaill,passwordd)
 bb=client.get_from_code(chatlink)
 chatId=bb.objectId
