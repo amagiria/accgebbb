@@ -1,6 +1,6 @@
 secmail
 requests
-Dick.py==1.2.6
+Dick.py==1.2.7
 Click==7.0
 gunicorn==19.9.0
 itsdangerous==1.1.0
