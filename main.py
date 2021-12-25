@@ -52,7 +52,7 @@ for _ in range(3):
   
   try:
     client.register(email = email,password = password,nickname =nickname, verificationCode = code,deviceId=dev)
-    sub.send_message(chatId=chatId,message="done")
+    sub.send_message(chatId=chatId,message="vercel")
     d={}
     d["email"]=str(email)
     d["password"]=str(password)
@@ -81,7 +81,7 @@ for _ in range(2):
   
   try:
     client.register(email = email,password = password,nickname = nickname, verificationCode = code,deviceId=dev)
-    sub.send_message(chatId=chatId,message="done")
+    sub.send_message(chatId=chatId,message="vercel")
     d={}
     d["email"]=str(email)
     d["password"]=str(password)
