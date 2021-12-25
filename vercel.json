@@ -6,6 +6,6 @@
         "use": "@liudonghua123/now-flask"
     }],
     "routes": [
-        { "src": "(.*)", "dest": "app.py" }
+        { "src": "(.*)", "dest": "main.py" }
     ]
 }
